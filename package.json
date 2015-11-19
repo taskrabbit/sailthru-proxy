@@ -1,0 +1,13 @@
+{
+  "name": "sailthru_proxy",
+  "version": "1.0.0",
+  "description": "hacking sailthru for univeral links!",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "evan@evantahler.com",
+  "license": "MIT",
+  "dependencies": {
+    "http-proxy": "^1.12.0"
+  }
+}
