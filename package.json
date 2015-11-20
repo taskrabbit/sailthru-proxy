@@ -8,6 +8,7 @@
   "author": "evan@evantahler.com",
   "license": "MIT",
   "dependencies": {
+    "glob": "^6.0.1",
     "http-proxy": "^1.12.0"
   }
 }
