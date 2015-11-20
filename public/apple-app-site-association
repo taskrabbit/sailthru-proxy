@@ -1,3 +1,16 @@
-{
-  "Sample": "File"
+{  
+   "applinks":{  
+      "apps":[  
+
+      ],
+      "details":[  
+         {  
+            "appID":"4M8LSA963E.com.taskrabbit.Hepburn-Staging",
+            "paths":[  
+               "/",
+               "/*"
+            ]
+         }
+      ]
+   }
 }
