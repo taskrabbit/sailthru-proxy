@@ -7,6 +7,8 @@ But we can hack around this via some DNS tricks and this small server!  This app
 
 Now you can HTTPS-enable this application, and serve the requsite JSON payload... all while still tracking your Email clicks and relying on SailThru to respond with the proper URL re-write data and UTM* tracking variables!
 
+![docs](https://raw.githubusercontent.com/taskrabbit/sailthru-proxy/master/docs/Univeral%20Links.png)
+
 ## Install
 - `git@github.com:taskrabbit/sailthru-proxy.git`
 - `npm install`
