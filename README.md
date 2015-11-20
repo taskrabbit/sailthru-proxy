@@ -14,4 +14,4 @@ Now you can HTTPS this host, and serve the requsite JSON payload.
 - `PROXY_TARGET=http://localhost:3000 PORT=8080 npm start`
 
 ## Production
-- `PROXY_TARGET=http://cb.sailthru.com PROXY_HOST=http://sailthru-links.taskrabbit.com npm start`
+- `PROXY_TARGET=http://cb.sailthru.com PROXY_HOST=sailthru-links.taskrabbit.com npm start`

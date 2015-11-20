@@ -2,7 +2,7 @@ var fs        = require('fs');
 var glob      = require('glob');
 var http      = require('http');
 var https     = require('https');
-var httpProxy = require('http-proxy');
+var request   = require('request');
 
 http.globalAgent.maxSockets  = 1000;
 https.globalAgent.maxSockets = 1000;
@@ -17,24 +17,43 @@ glob.sync(publicDir + '/**/*').forEach(function(f){
   publicFiles.push( f.replace(publicDir,'') );
 });
 
-var proxy = httpProxy.createProxyServer({
-  target: target, // Where do we send all requests?
-  xfwd: true,     // X-FORWARDED-FOR headers
-});
+var doProxy = function(req,res){
+  var proxyOptions = {
+    url: target + req.url,
+    followRedirect: false,
+    headers: {}
+  };
 
-proxy.on('proxyReq', function(proxyReq, req, res, options){
-  proxyReq.setHeader('X-proxy-note', 'taskrabbit-sailthru-proxy');
-  if(proxyHostHeader){ proxyReq.setHeader('Host', proxyHostHeader); }
-});
+  for(var key in req.headers){
+    proxyOptions.headers[key] = req.headers[key];
+  }
+
+  delete proxyOptions.headers.host;
+  delete proxyOptions.headers.Host;
+  delete proxyOptions.headers.HOST;
+
+  proxyOptions.headers['X-Proxy-Note'] = 'taskrabbit-sailthru-proxy';
+  proxyOptions.headers['X-Forwarded-For'] = req.connection.remoteAddress;
+  proxyOptions.headers['Host'] = proxyHostHeader;
+
+  request(proxyOptions, function(error, response){
+    if(error){ console.log(error); }
+    else{
+      for(var key in response.headers){
+        res.setHeader(key, response.headers[key]);
+      }
+    }
+    res.end(response.body);
+  });
+};
 
 var server = http.createServer(function(req, res){
   if(publicFiles.indexOf(req.url) >= 0){
     console.log('[file] ' + req.connection.remoteAddress + ' -> ' + req.url);
     fs.createReadStream(publicDir + req.url).pipe(res);
-    // res.end();
   }else{
     console.log('[proxy] ' + req.connection.remoteAddress + ' -> ' + req.url);
-    proxy.web(req, res);
+    doProxy(req, res);    
   }
 });
 
