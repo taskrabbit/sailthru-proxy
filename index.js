@@ -70,11 +70,7 @@ var doProxy = function(req, res){
 
   request(proxyOptions, function(error, response){
     if(error){ console.log(error); }
-    else{
-      for(var key in response.headers){
-        res.setHeader(key, response.headers[key]);
-      }
-    }
+    res.writeHead(response.statusCode, response.headers);
     res.end(response.body);
   });
 };
