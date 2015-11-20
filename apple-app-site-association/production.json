@@ -1,0 +1,25 @@
+{  
+   "applinks":{  
+      "apps":[  
+
+      ],
+      "details":[  
+         {  
+            "appID":"65742EK7UT.com.taskrabbit.site",
+            "paths":[  
+               "/",
+               "/dashboard",
+               "/m/*",
+               "/mw/*",
+               "/app",
+               "/app/*",
+               "/t/*",
+               "/tw/*",
+               "/tasks/*",
+               "/account",
+               "/account/*"
+            ]
+         }
+      ]
+   }
+}
